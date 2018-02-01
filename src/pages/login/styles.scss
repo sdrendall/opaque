@@ -1,0 +1,24 @@
+@import '../../scss/constants.scss';
+
+.opaque-page-login {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+
+    display: grid;
+    grid-template:  "top   top  top"  75px
+                    "left logo right" 120px
+                    "left form right" 225px
+                    "bot   bot   bot" 1fr
+                    /1fr  250px 1fr;
+
+
+    .opaque-logo{
+        grid-area: logo;
+    }
+
+    .opaque-form-login {
+        grid-area: form;
+    }
+}
+

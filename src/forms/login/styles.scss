@@ -1,0 +1,13 @@
+@import '../../scss/constants.scss';
+
+.opaque-form-login {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    align-items: center;
+
+    label {
+        width: fit-content;
+        margin-bottom: 10px;
+    }
+}

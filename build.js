@@ -1,6 +1,7 @@
-const webpack = require('webpack');
+const webpack = require('webpack')
+const path = require('path')
 
-const plugins = [];
+const plugins = []
 
 if (require.main == module) {
     plugins.push(
@@ -14,11 +15,12 @@ if (require.main == module) {
                 warnings: false
             }
         })
-    );
+    )
 }
 
 const conf = {
-    entry: ['babel-polyfill', __dirname + '/src/start.js'],
+    context: path.join(__dirname, 'src'),
+    entry: ['babel-polyfill', './start.js'],
     output: {
         path: __dirname,
         filename: 'bundle.js'
@@ -33,25 +35,29 @@ const conf = {
                     presets: [['es2015'], ['react']],
                     plugins: ['transform-async-to-generator']
                 }
+            },
+            {
+                test: /\.scss$/,
+                loaders: ['style', 'css', 'sass']
             }
         ]
     }
-};
+}
 
 if (require.main == module) {
     webpack(conf, function(err, info) {
         if (err) {
-            console.log(err);
+            console.log(err)
         }
         if (info && info.compilation.errors.length) {
-            console.log(info.compilation.errors);
+            console.log(info.compilation.errors)
         }
-    });
+    })
 } else {
     module.exports = require('webpack-dev-middleware')(webpack(conf), {
         watchOptions: {
             aggregateTimeout: 300
         },
         publicPath: '/'
-    });
+    })
 }

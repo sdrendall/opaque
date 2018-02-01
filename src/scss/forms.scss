@@ -1,0 +1,33 @@
+@import './constants.scss';
+
+form {
+    *:focus {
+        outline-color: $color-highlight;
+    }
+
+    label {
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: flex-start;
+        align-items: left;
+
+        font-size: 0.5rem;
+    }
+
+    input {
+        font-size: 0.8rem;
+    }
+
+    /* Removes pale yellow styling from chrome autocomplete */
+    input:-webkit-autofill {
+        -webkit-box-shadow: 0 0 0 30px $color-primary inset;
+    }
+
+    input[type=file] {
+        border: none;
+    }
+
+    input[type=file]:focus {
+        outline: none;
+    }
+}

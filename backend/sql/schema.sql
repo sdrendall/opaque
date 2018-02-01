@@ -1,0 +1,7 @@
+DROP TABLE IF EXISTS users;
+
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    username VARCHAR(63) UNIQUE NOT NULL,
+    digest VARCHAR(255) NOT NULL
+);
