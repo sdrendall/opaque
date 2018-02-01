@@ -3,12 +3,14 @@ const compression = require('compression')
 const bodyParser = require('body-parser')
 const sessions = require('./backend/routes/sessions')
 const portal = require('./backend/routes/portal')
+const uploader = require('./backend/routes/uploader')
 
 const app = express()
 app.use(bodyParser({ extended: false }))
 app.use(compression())
 app.use(sessions)
 app.use(portal)
+app.use(uploader)
 
 if (process.env.NODE_ENV != 'production') {
     app.use(

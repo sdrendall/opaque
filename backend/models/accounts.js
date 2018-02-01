@@ -6,8 +6,8 @@ const DB_URL = process.env.DATABASE_URL
 
 const db = pg(DB_URL)
 
-function rowToUser({ username }) {
-    return { username }
+function rowToUser({ username, id, bio, ppic_url }) {
+    return { username, id, bio, ppic_url }
 }
 
 function registerUser(username, password) {
@@ -21,6 +21,18 @@ function registerUser(username, password) {
             `, [username, digest]
         ))
 }
+
+function userGetter(column) {
+    return function(value) {
+        db.query(
+            `SELECT * FROM users
+                WHERE ${column} = $1
+        `, [value])
+    }
+}
+
+exports.getByUsername = userGetter('username')
+exports.getByUserId = userGetter('id')
 
 exports.testCredentials = ({ username, password }) => {
     return db
@@ -51,3 +63,11 @@ exports.testCredentials = ({ username, password }) => {
             }
         })
 }
+
+exports.updateProfilePic = (({ id, src }) => db.query(`
+        UPDATE users
+        SET ppic_url = $2
+        WHERE id = $1
+        RETURNING *
+    `, [id, src]
+))

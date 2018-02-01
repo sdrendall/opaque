@@ -1,7 +1,10 @@
-DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS users CASCADE;
+DROP TABLE IF EXISTS images;
 
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
     username VARCHAR(63) UNIQUE NOT NULL,
-    digest VARCHAR(255) NOT NULL
+    digest VARCHAR(255) NOT NULL,
+    ppic_url VARCHAR(255),
+    bio TEXT
 );

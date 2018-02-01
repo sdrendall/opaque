@@ -25,15 +25,13 @@ export default class extends React.Component {
     }
 
     render() {
-        const isLoggedIn = this.state.user
+        const user = this.state.user
         return ( 
             <div className="opaque-app"> 
-                {isLoggedIn ? (
-                    <MainPage />
+                {user ? (
+                    <MainPage user={user} updateUser={this.updateUser} />
                 ) : (
-                    <LoginPage 
-                        updateUser={this.updateUser}
-                    /> 
+                    <LoginPage updateUser={this.updateUser} /> 
                 ) } 
             </div>
         )

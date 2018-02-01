@@ -1,4 +1,4 @@
 {
     "PORT": 8080,
-    "DB_URL": "postgres:sam_spiced:saffron@localhost:5432/imageboard"
+    "DB_URL": "postgres:sam_spiced:saffron@localhost:5432/social"
 }

@@ -1,0 +1,5 @@
+{
+    "s3url": "https://s3.amazonaws.com/donkey-pot/",
+    "bucket": "donkey-pot",
+    "dataDir": "spiced-social"
+}
