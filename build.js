@@ -32,7 +32,7 @@ const conf = {
                 test: /\.js$/,
                 loader: 'babel-loader',
                 query: {
-                    presets: [['es2015'], ['react']],
+                    presets: [['es2015'], ['react'], ['stage2']],
                     plugins: ['transform-async-to-generator']
                 }
             },

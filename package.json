@@ -54,6 +54,7 @@
     "author": "",
     "license": "ISC",
     "devDependencies": {
+        "babel-preset-stage-3": "^6.24.1",
         "css-loader": "^0.28.9",
         "node-sass": "^4.7.2",
         "sass-loader": "^6.0.6"
