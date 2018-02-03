@@ -1,4 +1,5 @@
 import React from 'react'
+import './styles.scss'
 
 export default function(Content) {
     return function({ close, ...contentProps }) {
@@ -7,7 +8,11 @@ export default function(Content) {
                 className="opaque-modal"
                 onClick={close}
             >
-                <Content {...contentProps} />
+                <div onClick={e => e.stopPropagation()}>
+                    <Content 
+                        {...contentProps}
+                    />
+                </div>
             </div>
         )
     }

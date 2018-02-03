@@ -62,7 +62,10 @@ router.post('/upload',
     uploadToS3,
     (req, res) => {
         accounts
-            .updateProfilePic(req.body)
+            .updateProfilePic({
+                id: req.session.user.id,
+                url: req.body.src,
+            })
             .then(({ rows }) => {
                 res.json({
                     user: rows[0],

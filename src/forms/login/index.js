@@ -22,7 +22,7 @@ class LoginForm extends React.Component {
     submit() {
         const { username, password } = this.state
         axios
-            .post('/login', {
+            .post('/portal/login', {
                 username,
                 password
             })

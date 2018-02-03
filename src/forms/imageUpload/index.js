@@ -2,6 +2,7 @@ import React from 'react'
 import axios from 'axios'
 
 /* props
+ *  user: User
  *  updateUser(): user -> undefined
  */
 
@@ -26,7 +27,6 @@ export default class extends React.Component {
     upload() {
         const data = new FormData()
         data.append('file', this.state.file)
-        data.append('id', this.props.user.id)
         axios
             .post('/upload', data)
             .then(({ data }) => {
@@ -40,7 +40,8 @@ export default class extends React.Component {
 
     render() {
         return ( 
-            <form className="opaque-form-editprofile">
+            <form className="opaque-form-imageupload">
+                <h2>change profile pic</h2>
                 <input type="file" onChange={this.selectFile} />
                 <button type="button" onClick={this.upload}>
                     Submit

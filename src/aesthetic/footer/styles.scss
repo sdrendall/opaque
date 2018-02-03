@@ -1,0 +1,11 @@
+@import '../../scss/constants.scss';
+
+.opaque-footer {
+    text-align: center;
+    border-top: 1px solid $color-secondary;
+    height: 25px;
+    width: 100%;
+    font-size: 0.8rem;
+
+    padding-top: 5px;
+}

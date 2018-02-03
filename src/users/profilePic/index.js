@@ -1,4 +1,5 @@
 import React from 'react'
+import './styles.scss'
 
 /* props -- subset of User
  *   user: User
@@ -14,7 +15,7 @@ export default function({user, openProfileEditor}) {
             <img 
                 src={user.ppic_url}
                 alt={user.username}
-            /> // img
+            />
         </div>
     )
 }

@@ -30,4 +30,8 @@ form {
     input[type=file]:focus {
         outline: none;
     }
+
+    textarea {
+        font-size: 0.8rem;
+    }
 }

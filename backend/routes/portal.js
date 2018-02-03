@@ -8,6 +8,34 @@ router.get('/user', (req, res) => {
     res.json({ user: req.session.user })
 })
 
+router.post('/updateBio', (req, res) => {
+    accounts
+        .updateBio({
+            id: req.session.user.id,
+            bio: req.body.bio
+        })
+        .then(({ rows }) => {
+            if (rows.length === 1) {
+                res.json({
+                    success: true,
+                    user: rows[0]
+                })
+            } else {
+                res.json({
+                    success: false,
+                    reason: 'user not found!'
+                })
+            }
+        })
+        .catch(error => { 
+            res.json({
+                success: false,
+                reason: 'database error!'
+            })
+            logger.error(error) 
+        })
+})
+
 router.post('/login', (req, res) => {
     logger.log(`Login request for user ${req.body.username}`)
     accounts
@@ -18,7 +46,7 @@ router.post('/login', (req, res) => {
                 case 'loginFailure':
                     res.json({
                         msg: `bad credentials`,
-                        user: null,
+                        user: undefined,
                     })
                     break;
                 case 'loginSuccess':

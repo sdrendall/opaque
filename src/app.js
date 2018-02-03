@@ -1,10 +1,11 @@
 import React from 'react'
+import axios from 'axios'
 
 import LoginPage from './pages/login'
 import MainPage from './pages/main'
 import './scss/global.scss'
 
-/* props {
+/* state {
  *      user: currentUser || undefined
  *  }
  */
@@ -18,6 +19,15 @@ export default class extends React.Component {
         this.updateUser = this.updateUser.bind(this)
     }
 
+    componentDidMount() {
+        axios
+            .get('/portal/user')
+            .then(({ data }) => { 
+                this.updateUser(data.user) 
+                console.log(data.user)
+            })
+    }
+
     updateUser(newUser) {
         this.setState({
             user: newUser
@@ -28,7 +38,7 @@ export default class extends React.Component {
         const user = this.state.user
         return ( 
             <div className="opaque-app"> 
-                {user ? (
+                { user ? (
                     <MainPage user={user} updateUser={this.updateUser} />
                 ) : (
                     <LoginPage updateUser={this.updateUser} /> 

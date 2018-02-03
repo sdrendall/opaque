@@ -1,6 +1,10 @@
 $color-primary: #f8f9fb;
-$color-secondary: #0c1404;
+$color-secondary: rgb(12, 20, 21);
+$color-secondary-transparent: rgba(12, 20, 21, 0.5);
 $color-tertiary: #555;
 $color-quaternary: #999;
+
+$color-modal: #111414;
+$color-modal-text: $color-primary;
 
 $color-highlight: black;

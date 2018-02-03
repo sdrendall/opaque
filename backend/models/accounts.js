@@ -64,10 +64,18 @@ exports.testCredentials = ({ username, password }) => {
         })
 }
 
-exports.updateProfilePic = (({ id, src }) => db.query(`
+exports.updateProfilePic = (({ id, url }) => db.query(`
         UPDATE users
         SET ppic_url = $2
         WHERE id = $1
         RETURNING *
-    `, [id, src]
+    `, [id, url]
+))
+
+exports.updateBio = (({ id, bio }) => db.query(`
+        UPDATE users
+        SET bio = $2
+        WHERE id = $1
+        RETURNING *
+    `, [id, bio]
 ))

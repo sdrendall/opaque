@@ -1,0 +1,56 @@
+@import '../../scss/constants.scss';
+
+
+.opaque-page-main {
+    height: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+
+    > header {
+        width: 100%;
+        height: 49px;
+
+        display: grid;
+        grid-template:  "lpad  logo mpad  tag logout rpad" 100%
+                       / 1fr  110px 506px 334px 50px 1fr;
+
+        .opaque-logo {
+            grid-area: logo;
+            float: left;
+            margin-left: 7px;
+            height: 49px;
+        }
+
+        .opaque-usertag {
+            grid-area: tag;
+            float: right;
+            margin: 7px;
+            height: 25px;
+            width: 320px;
+        }
+
+        .opaque-logout {
+            grid-area: logout;
+            margin-top: 11px;
+        }
+    }
+
+    > section {
+        width: 100%;
+
+        display: grid;
+        grid-template: "lpad content rpad" 100%
+                    /    1fr  1000px  1fr;
+
+        .opaque-profile {
+            grid-area: content;
+        }
+    }
+
+    > footer {
+        margin-top: auto;
+    }
+
+}
+

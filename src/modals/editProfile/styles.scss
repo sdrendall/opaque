@@ -1,0 +1,33 @@
+@import '../../scss/constants.scss';
+
+.opaque-modal-editprofile {
+    padding: 0px 26px;
+
+    > header {
+        border-bottom: 1px $color-modal-text solid; 
+        height: 175px;
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-between;
+        align-items: flex-end;
+
+        h1 {
+            order: 2;
+            margin: 0;
+        }
+        
+        .opaque-ppic {
+            order: 1;
+            height: 150px;
+            width: 150px;
+            margin-bottom: 7px;
+        }
+    }
+
+    > .opaque-form-editprofile {
+        display: flex;
+        flex-flow: column nowrap;
+        align-items: center;
+    }
+}
+

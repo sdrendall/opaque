@@ -1,11 +1,10 @@
 import React from 'react'
-
 import './styles.scss'
 
 export default function Logo() {
     return (
-        <h1 className="opaque-logo">
-            opaQue
-        </h1>
+        <a href="/" className="opaque-logo">
+            <img src="/assets/opaqueLogo.png" />
+        </a>
     )
 }

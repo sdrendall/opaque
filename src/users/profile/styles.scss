@@ -1,0 +1,31 @@
+@import '../../scss/constants';
+
+.opaque-profile {
+    display: grid;
+    grid-template: "ppic username" 27px
+                   "ppic    bio  " 223px
+                /   250px   750px;
+
+
+    .opaque-ppic {
+        grid-area: ppic;
+        height: 250px;
+        width: 250px;
+    }
+
+    h1 {
+        margin: 0;
+        grid-area: username;
+        text-align: right;
+    }
+
+    .bio {
+        grid-area: bio;
+        text-align: left;
+        margin-left: 7px;
+
+        p {
+            margin: 0;
+        }
+    }
+}

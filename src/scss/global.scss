@@ -6,15 +6,27 @@
     font-family: 'Share Tech Mono', monospace;
 }
 
+html,
 body,
-html {
+main,
+.opaque-app {
     width: 100%;
     height: 100%;
 }
+
 
 body {
     margin: 0;
     background-color: $color-primary;
     color: $color-secondary;
     text-align: center;
+}
+
+a {
+    color: $color-secondary;
+}
+
+p,
+textarea {
+    font-family: 'Raleway', serif;
 }

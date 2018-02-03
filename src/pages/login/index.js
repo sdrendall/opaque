@@ -1,6 +1,6 @@
 import React from 'react'
 
-import Logo from '../../aesthetic/logo/index.js'
+import Logo from '../../aesthetic/logo'
 import LoginForm from '../../forms/login'
 
 import './styles.scss'
