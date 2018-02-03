@@ -1,5 +1,5 @@
 import React from 'react'
-import axios from 'axios'
+import axios from './network/axios'
 
 import LoginPage from './pages/login'
 import MainPage from './pages/main'

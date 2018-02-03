@@ -14,6 +14,12 @@ app.use((req, res, next) => {
     next()
 })
 
+// csurf protection. requires use of ~/src/network/axios.js
+app.use((req, res, next) => {
+    res.cookie('mytoken', req.csrfToken())
+    next()
+})
+
 app.use(bodyParser({ extended: false }))
 app.use(compression())
 app.use(sessions)
