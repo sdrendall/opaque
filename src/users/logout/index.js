@@ -9,6 +9,12 @@ import './styles.scss'
 
 export default function(props) {
     return (
+        <a className='opaque-logout' href='/portal/logout'>logout</a>
+    )
+}
+
+/*export default function(props) {
+    return (
         <span 
             className='opaque-logout'
             onClick={() => {
@@ -27,4 +33,4 @@ export default function(props) {
             }}
         >logout</span>
     )
-}
+}*/

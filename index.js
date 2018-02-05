@@ -2,6 +2,7 @@ const express = require('express')
 const path = require('path')
 const compression = require('compression')
 const bodyParser = require('body-parser')
+const csurf = require('csurf')
 const sessions = require('./backend/routes/sessions')
 const portal = require('./backend/routes/portal')
 const uploader = require('./backend/routes/uploader')
@@ -14,15 +15,17 @@ app.use((req, res, next) => {
     next()
 })
 
+app.use(bodyParser({ extended: false }))
+app.use(compression())
+app.use(sessions)
+
 // csurf protection. requires use of ~/src/network/axios.js
+app.use(csurf())
 app.use((req, res, next) => {
     res.cookie('mytoken', req.csrfToken())
     next()
 })
 
-app.use(bodyParser({ extended: false }))
-app.use(compression())
-app.use(sessions)
 app.use(uploader)
 app.use('/portal', portal)
 
@@ -39,20 +42,8 @@ if (process.env.NODE_ENV != 'production') {
 
 app.use('/assets', express.static(path.resolve(__dirname, 'assets')))
 
-app.get('/welcome', (req, res) => {
-    if (req.session.user) {
-        res.redirect('/')
-    } else {
-        res.sendFile(__dirname + '/index.html')
-    }
-})
-
 app.get('*', function(req, res) {
-    if (!req.session.user) {
-        res.redirect('/welcome')
-    } else {
-        res.sendFile(__dirname + '/index.html')
-    }
+    res.sendFile(__dirname + '/index.html')
 })
 
 
