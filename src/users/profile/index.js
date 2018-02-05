@@ -1,6 +1,7 @@
 import React from 'react'
 
 import PPic from '../profilePic'
+import ClickableText from '../../ui/clickableText'
 import './styles.scss'
 
 /* props
@@ -17,11 +18,18 @@ export default function(props) {
             />
             <h1>{props.user.username}</h1>
             <div className="bio"> { props.user.bio ? (
-                    <p> {props.user.bio} </p>
+                    <p> 
+                        {props.user.bio}
+                        <br /><br />
+                        <ClickableText 
+                            onClick={props.openProfileEditor}
+                            text="edit profile"
+                        />
+                    </p>
                 ) : (
-                <a href='#' onClick={props.openProfileEditor}>
-                add a bio
-                </a>
+                <span onClick={props.openProfileEditor}>
+                    add a bio
+                </span>
             )} </div>
         </div>
     )
