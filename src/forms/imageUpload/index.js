@@ -1,5 +1,5 @@
 import React from 'react'
-import axios from '../../network/axios'
+import _axios from '../../network/axios'
 
 /* props
  *  user: User
@@ -27,15 +27,16 @@ export default class extends React.Component {
     upload() {
         const data = new FormData()
         data.append('file', this.state.file)
-        axios
+        _axios
             .post('/upload', data)
-            .then(({ data }) => {
-                if (data.success) {
+            .then(data => {
+                if (data && data.success) {
                     this.props.updateUser(data.user)
                 } else {
                     alert(`Upload failed! ${data.reason}`)
                 }
             })
+            .catch(error => console.log(error))
     }
 
     render() {

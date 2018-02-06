@@ -1,5 +1,5 @@
 import React from 'react'
-import axios from '../../network/axios'
+import _axios from '../../network/axios'
 import './styles.scss'
 
 /* props
@@ -21,15 +21,18 @@ class LoginForm extends React.Component {
 
     submit() {
         const { username, password } = this.state
-        axios
+        _axios
             .post('/portal/login', {
                 username,
                 password
             })
-            .then(({ data }) => {
+            .then(data => {
                 const { user, msg } = data
                 this.setState({ msg })
                 this.props.updateUser(user)
+            })
+            .catch(error => {
+                alert(`login failed! reason: ${error}`)
             })
     }
 

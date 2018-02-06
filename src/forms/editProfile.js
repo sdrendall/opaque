@@ -1,5 +1,5 @@
 import React from 'react'
-import axios from '../network/axios'
+import _axios from '../network/axios'
 
 /* props
  *  user: User
@@ -17,21 +17,18 @@ export default class extends React.Component {
     }
 
     submit() {
-        axios
+        _axios
             .post('/portal/updateBio', { bio: this.state.bio })
-            .then(({ status, data }) => {
-                if (status = 200 && data.success) {
+            .then(data => {
+                if (data && data.success) {
                     this.props.updateUser(data.user)
-                } else if (status != 200) {
-                    this.setState({
-                        error: `update request failed with status ${status}`
-                    })
                 } else {
                     this.setState({
                         error: `server failure: ${data.reason}`
                     })
                 }
             })
+            .catch(error => console.log(error))
     }
 
     render() {
