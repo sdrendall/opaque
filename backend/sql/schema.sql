@@ -1,10 +1,20 @@
 DROP TABLE IF EXISTS users CASCADE;
 DROP TABLE IF EXISTS images;
+DROP TABLE IF EXISTS friendships;
 
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
     username VARCHAR(63) UNIQUE NOT NULL,
     digest VARCHAR(255) NOT NULL,
     ppic_url VARCHAR(255),
-    bio TEXT
+    bio TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE TABLE friendships (
+    id SERIAL PRIMARY KEY,
+    user1_id INTEGER REFERENCES users.id,
+    user2_id INTEGER REFERENCES users.id,
+    status VARCHAR(31),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+)
