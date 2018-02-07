@@ -15,7 +15,6 @@ export default opaqueModal(
                     <h1>{props.user.username}</h1>
                     <PPic
                         user={props.user}
-                        openProfileEditor={() => {}}
                     />
                 </header>
                 <ImageUploadForm 

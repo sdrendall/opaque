@@ -6,6 +6,7 @@ const csurf = require('csurf')
 const sessions = require('./backend/routes/sessions')
 const portal = require('./backend/routes/portal')
 const uploader = require('./backend/routes/uploader')
+const friends = require('./backend/routes/friends')
 const { log, error } = require('./backend/util/logger')
 
 const app = express()
@@ -28,6 +29,7 @@ app.use((req, res, next) => {
 
 app.use(uploader)
 app.use('/portal', portal)
+app.use('/friends', friends)
 
 if (process.env.NODE_ENV != 'production') {
     app.use(

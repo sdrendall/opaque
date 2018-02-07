@@ -5,7 +5,27 @@ const logger = require('../util/logger')
 const router = express.Router()
 
 router.get('/user', (req, res) => {
-    res.json({ user: req.session.user })
+    if (req.session.user) {
+        accounts
+            .getByUserId(req.session.user.id)
+            .then(({ rows }) => {
+                res.json({ user: rows[0] })
+            })
+            .catch(error => logger.error(error))
+    } else {
+        res.json({ user: undefined })
+    }
+})
+
+router.get('/user/:id', (req, res) => {
+    accounts
+        .getByUserId(req.params.id)
+        .then(({rows}) => {
+            res.json({
+                user: rows[0]
+            })
+        })
+        .catch(error => logger.error(error))
 })
 
 router.post('/updateBio', (req, res) => {

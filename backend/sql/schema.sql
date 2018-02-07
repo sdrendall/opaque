@@ -13,8 +13,8 @@ CREATE TABLE users (
 
 CREATE TABLE friendships (
     id SERIAL PRIMARY KEY,
-    user1_id INTEGER REFERENCES users.id,
-    user2_id INTEGER REFERENCES users.id,
+    user1_id INTEGER REFERENCES users (id),
+    user2_id INTEGER REFERENCES users (id),
     status VARCHAR(31),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )

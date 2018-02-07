@@ -24,7 +24,7 @@ function registerUser(username, password) {
 
 function userGetter(column) {
     return function(value) {
-        db.query(
+        return db.query(
             `SELECT * FROM users
                 WHERE ${column} = $1
         `, [value])

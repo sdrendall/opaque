@@ -4,11 +4,11 @@ import PPic from '../profilePic'
 import './styles.scss'
 
 export default function(props) {
-    const { user, openProfileEditor } = props
+    const { user, clickHandler } = props
     return (
         <div 
             className="opaque-usertag"
-            onClick={openProfileEditor}
+            onClick={clickHandler || (x => x)}
         >
             <PPic {...props} />
             {user.username}

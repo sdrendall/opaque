@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Link } from 'react-router-dom'
 
 import Logo from '../../aesthetic/logo'
 import UserTag from '../../users/userTag'
+import UserProfile from '../../users/userProfile'
 import Profile from '../../users/profile'
 import Logout from '../../users/logout'
 import EditProfileModal from '../../modals/editProfile'
@@ -38,7 +39,7 @@ export default class extends React.Component {
                     <Logo />
                     <UserTag 
                         user={user}
-                        openProfileEditor={this.openProfileEditor}
+                        clickHandler={this.openProfileEditor}
                     />
                     <Logout updateUser={updateUser} />
                 </header>
@@ -46,11 +47,21 @@ export default class extends React.Component {
                 <BrowserRouter>
                     <section>
                         <Route
+                            exact
                             path="/"
                             render={() => (
-                                <Profile
+                                <UserProfile
                                     user={user}
                                     openProfileEditor={this.openProfileEditor}
+                                />
+                            )}
+                        />
+                        <Route
+                            path="/user/:id"
+                            render={(_props) => (
+                                <Profile
+                                    user={user}
+                                    targetId={_props.match.params.id}
                                 />
                             )}
                         />

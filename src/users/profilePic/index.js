@@ -3,14 +3,14 @@ import './styles.scss'
 
 /* props -- subset of User
  *   user: User
- *   openProfileEditor: () => undefined
+ *   clickHandler: () => undefined
  */
 
-export default function({user, openProfileEditor}) {
+export default function({user, clickHandler}) {
     return (
         <div 
             className="opaque-ppic"
-            onClick={openProfileEditor}
+            onClick={clickHandler || (x => x)}
         >
             <img 
                 src={user.ppic_url}

@@ -1,6 +1,6 @@
 const express = require('express')
 const logger = require('../util/logger')
-const friends = require('../models/friends')
+const friends = require('../models/friendships')
 
 const router = express.Router()
 
@@ -53,12 +53,15 @@ router.get('/:action/:id', (req, res, next) => {
     const target_id = req.params.id
     const action = req.params.action
     
-    if (action in availableActions) {
+    if (availableActions.includes(action)) {
         friends
             [action]({ user_id, target_id })
             .then(({ rows }) => res.json(rows[0]))
-            .catch(error => logger.error(error))
+            .catch(error => console.log(error))
     } else {
+        logger.log(`Encountered unknown friend action ${action}`)
         next()
     }
 })
+
+module.exports = router

@@ -5,7 +5,7 @@ import './styles.scss'
 
 /* props
  *  user: User
- *  target: User
+ *  targetUser: User
  */
 
 /* friendship statues:
@@ -15,7 +15,19 @@ import './styles.scss'
  *  4: cancelled
  *  5: terminated
  *  6: not friends
+ *
+ *  *: awaiting response - created here
  */
+
+const statusToText = {
+    requested: 'cancel request',
+    accepted: 'unfriend',
+    rejected: 'add friend',
+    cancelled: 'add friend',
+    terminated: 'add friend',
+    'not friends': 'add friend',
+    'awaiting response': 'awaiting response'
+}
 
 export default class extends React.Component {
     constructor(props) {
@@ -24,21 +36,31 @@ export default class extends React.Component {
             status: 'not friends',
             display: false
         }
+        this.handleFriendshipData = this.handleFriendshipData.bind(this)
+        this.handleButtonClick = this.handleButtonClick.bind(this)
+        this.checkFriendship = this.checkFriendship.bind(this)
+        this.requestFriendship = this.requestFriendship.bind(this)
+        this.rejectRequest = this.rejectRequest.bind(this)
+        this.cancelRequest = this.cancelRequest.bind(this)
+        this.terminateFriendship = this.terminateFriendship.bind(this)
+    }
 
-        this.statusToText = {
-            requested: 'cancel request',
-            accepted: 'unfriend',
-            rejected: 'add friend',
-            cancelled: 'add friend',
-            terminated: 'add friend',
-            'not friends': 'add friend'
-        }
+    componentDidMount() {
+        _axios
+            .get(`/friends/check/${this.props.targetUser.id}`)
+            .then(this.handleFriendshipData)
+            .catch(error => console.log(error))
     }
 
     handleFriendshipData(data) {
+        const status = data.status == 'requested' && data.user2_id == this.props.user.id ? (
+            'awaiting response'
+        ) : (
+            data.status
+        )
         if (data) {
             this.setState({ 
-                status: data.status,
+                status,
                 display: true
             })
         } else {
@@ -48,37 +70,35 @@ export default class extends React.Component {
 
     checkFriendship() {
         _axios
-            .get(`/friends/check/${this.props.target.id}`)
-            .then(handleFriendshipData)
+            .get(`/friends/check/${this.props.targetUser.id}`)
+            .then(this.handleFriendshipData)
     }
 
     requestFriendship() {
         _axios
-            .get(`/friends/request/${this.props.target.id}`)
-            .then(handleFriendshipData)
+            .get(`/friends/request/${this.props.targetUser.id}`)
+            .then(this.handleFriendshipData)
     }
 
     rejectRequest() {
         _axios
-            .get(`/friends/reject/${this.props.target.id}`)
-            .then(handleFriendshipData)
+            .get(`/friends/reject/${this.props.targetUser.id}`)
+            .then(this.handleFriendshipData)
     }
 
     cancelRequest() {
         _axios
-            .get(`/friends/cancel/${this.props.target.id}`)
-            .then(handleFriendshipData)
+            .get(`/friends/cancel/${this.props.targetUser.id}`)
+            .then(this.handleFriendshipData)
     }
 
     terminateFriendship() {
         _axios
-            .get(`/friends/terminate/${this.props.target.id}`)
-            .then(handleFriendshipData)
+            .get(`/friends/terminate/${this.props.targetUser.id}`)
+            .then(this.handleFriendshipData)
     }
 
     handleButtonClick(e) {
-        console.log('friend button click')
-        console.log(this.state)
         switch(this.state.status) {
             case 'not friends':
             case 'rejected':
@@ -106,7 +126,7 @@ export default class extends React.Component {
                 type="button"
                 onClick={this.handleButtonClick}
             >
-                {this.statusToText[this.state.status]}
+                {statusToText[this.state.status]}
             </button>
         )
     }

@@ -11,10 +11,10 @@ import './styles.scss'
 
 export default function(props) {
     return (
-        <div className='opaque-profile'>
+        <div className='opaque-userprofile opaque-profile'>
             <PPic 
                 user={props.user} 
-                openProfileEditor={props.openProfileEditor}
+                clickHandler={props.openProfileEditor}
             />
             <h1>{props.user.username}</h1>
             <div className="bio"> { props.user.bio ? (
