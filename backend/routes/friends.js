@@ -1,6 +1,6 @@
 const express = require('express')
 const logger = require('../util/logger')
-const friends = require('../models/friendships')
+const friendships = require('../models/friendships')
 
 const router = express.Router()
 
@@ -12,9 +12,21 @@ const router = express.Router()
  *  5: terminated
  */
 
+router.get('/all', (req, res) => {
+    friendships
+        .getAllFriends(req.session.user.id)
+        .then(({ rows }) => {
+            res.json({ friends: rows })
+        })
+        .catch(error => {
+            logger.error(error)
+            res.status(500).send('Server Failure!')
+        })
+})
+
 
 router.get('/check/:id', (req, res) => {
-    friends
+    friendships
         .check({ 
             user_id: req.session.user.id,
             target_id: req.params.id
@@ -22,15 +34,20 @@ router.get('/check/:id', (req, res) => {
         .then(({ rows }) => {
             if (rows.length < 1) {
                 res.json({ 
-                    user1_id: req.session.user.id,
-                    user2_id: req.params.id,
-                    status: 'not friends'
+                    friendship: { 
+                        user1_id: req.session.user.id,
+                        user2_id: req.params.id,
+                        status: 'not friends'
+                    }
                 })
             } else {
-                res.json(rows[0])
+                res.json({ friendship: rows[0] })
             }
         })
-        .catch(error => logger.error(error))
+        .catch(error => {
+            logger.error(error)
+            res.status(500).send('Server Failure!')
+        })
 })
 
 /* handles the following:
@@ -40,6 +57,7 @@ router.get('/check/:id', (req, res) => {
  *  cancel
  *  terminate
  */
+
 const availableActions = [
     'accept',
     'reject',
@@ -48,15 +66,17 @@ const availableActions = [
     'terminate'
 ]
 
-router.get('/:action/:id', (req, res, next) => {
+router.post('/:action/:id', (req, res, next) => {
     const user_id = req.session.user.id
     const target_id = req.params.id
     const action = req.params.action
     
     if (availableActions.includes(action)) {
-        friends
+        friendships
             [action]({ user_id, target_id })
-            .then(({ rows }) => res.json(rows[0]))
+            .then(({ rows }) => res.json({ 
+                friendship: rows[0]
+            }))
             .catch(error => console.log(error))
     } else {
         logger.log(`Encountered unknown friend action ${action}`)

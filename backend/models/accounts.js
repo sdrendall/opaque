@@ -24,10 +24,16 @@ function registerUser(username, password) {
 
 function userGetter(column) {
     return function(value) {
-        return db.query(
-            `SELECT * FROM users
+        return db
+            .query(`
+                SELECT * FROM users
                 WHERE ${column} = $1
-        `, [value])
+            `, [value])
+            .then(({ rows }) => (rows.length > 0) ? (
+                rowToUser(rows[0])
+            ) : (
+                undefined
+            ))
     }
 }
 
@@ -64,18 +70,29 @@ exports.testCredentials = ({ username, password }) => {
         })
 }
 
-exports.updateProfilePic = (({ id, url }) => db.query(`
+exports.updateProfilePic = (({ id, url }) => db
+    .query(`
         UPDATE users
         SET ppic_url = $2
         WHERE id = $1
         RETURNING *
-    `, [id, url]
-))
+    `, [id, url])
+    .then(({ rows }) => (rows.length > 0) ? (
+        rowToUser(rows[0])
+    ) : (
+        undefined
+    ))
+)
 
 exports.updateBio = (({ id, bio }) => db.query(`
         UPDATE users
         SET bio = $2
         WHERE id = $1
         RETURNING *
-    `, [id, bio]
-))
+    `, [id, bio])
+    .then(({ rows }) => (rows.length > 0) ? (
+        rowToUser(rows[0])
+    ) : (
+        undefined
+    ))
+)

@@ -7,13 +7,14 @@ import './styles.scss'
  */
 
 export default function({user, clickHandler}) {
+
     return (
         <div 
             className="opaque-ppic"
             onClick={clickHandler || (x => x)}
         >
             <img 
-                src={user.ppic_url}
+                src={user.ppic_url || '../../../assets/defaultPPic.gif'}
                 alt={user.username}
             />
         </div>

@@ -13,6 +13,15 @@ const db = pg(DB_URL)
  *  5: terminated
  */
 
+exports.getAllFriends = user_id => db.query(`
+    SELECT users.id, username, ppic_url, status, user1_id, user2_id
+    FROM friendships
+    JOIN users
+    ON (status = 'requested' AND user2_id = $1 AND user1_id = users.id)
+    OR (status = 'accepted' AND user2_id = $1 AND user1_id = users.id)
+    OR (status = 'accepted' AND user1_id = $1 AND user2_id = users.id)
+`, [user_id])
+
 exports.check = ({ user_id, target_id }) => db.query(`
     SELECT * 
     FROM friendships

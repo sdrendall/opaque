@@ -52,13 +52,13 @@ export default class extends React.Component {
             .catch(error => console.log(error))
     }
 
-    handleFriendshipData(data) {
-        const status = data.status == 'requested' && data.user2_id == this.props.user.id ? (
+    handleFriendshipData({ friendship }) {
+        const status = friendship.status == 'requested' && friendship.user2_id == this.props.user.id ? (
             'awaiting response'
         ) : (
-            data.status
+            friendship.status
         )
-        if (data) {
+        if (friendship) {
             this.setState({ 
                 status,
                 display: true
@@ -76,25 +76,25 @@ export default class extends React.Component {
 
     requestFriendship() {
         _axios
-            .get(`/friends/request/${this.props.targetUser.id}`)
+            .post(`/friends/request/${this.props.targetUser.id}`)
             .then(this.handleFriendshipData)
     }
 
     rejectRequest() {
         _axios
-            .get(`/friends/reject/${this.props.targetUser.id}`)
+            .post(`/friends/reject/${this.props.targetUser.id}`)
             .then(this.handleFriendshipData)
     }
 
     cancelRequest() {
         _axios
-            .get(`/friends/cancel/${this.props.targetUser.id}`)
+            .post(`/friends/cancel/${this.props.targetUser.id}`)
             .then(this.handleFriendshipData)
     }
 
     terminateFriendship() {
         _axios
-            .get(`/friends/terminate/${this.props.targetUser.id}`)
+            .post(`/friends/terminate/${this.props.targetUser.id}`)
             .then(this.handleFriendshipData)
     }
 

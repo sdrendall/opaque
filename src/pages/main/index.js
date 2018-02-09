@@ -1,10 +1,11 @@
 import React from 'react'
-import { BrowserRouter, Route, Link } from 'react-router-dom'
+import { Route, Link } from 'react-router-dom'
 
 import Logo from '../../aesthetic/logo'
 import UserTag from '../../users/userTag'
 import UserProfile from '../../users/userProfile'
 import Profile from '../../users/profile'
+import FriendDisplay from '../../ui/friendDisplay'
 import Logout from '../../users/logout'
 import EditProfileModal from '../../modals/editProfile'
 import Footer from '../../aesthetic/footer'
@@ -44,29 +45,29 @@ export default class extends React.Component {
                     <Logout updateUser={updateUser} />
                 </header>
 
-                <BrowserRouter>
-                    <section>
-                        <Route
-                            exact
-                            path="/"
-                            render={() => (
-                                <UserProfile
-                                    user={user}
-                                    openProfileEditor={this.openProfileEditor}
-                                />
-                            )}
-                        />
-                        <Route
-                            path="/user/:id"
-                            render={(_props) => (
-                                <Profile
-                                    user={user}
-                                    targetId={_props.match.params.id}
-                                />
-                            )}
-                        />
-                    </section>
-                </BrowserRouter>
+                <section>
+                    <Route
+                        exact
+                        path="/"
+                        render={() => (
+                            <UserProfile
+                                user={user}
+                                openProfileEditor={this.openProfileEditor}
+                            />
+                        )}
+                    />
+                    <Route
+                        path="/user/:id"
+                        render={(_props) => (
+                            <Profile
+                                user={user}
+                                targetId={_props.match.params.id}
+                            />
+                        )}
+                    />
+
+                    <FriendDisplay />
+                </section>
 
                 <Footer />
 

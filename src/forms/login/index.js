@@ -45,8 +45,10 @@ class LoginForm extends React.Component {
             >
                 <label>
                     user
-                    <input type="text"
+                    <input 
+                        type="text"
                         value={this.state.username}
+                        maxLength="32"
                         onChange={ event => 
                             this.setState(
                                 {'username': event.target.value}
@@ -56,8 +58,10 @@ class LoginForm extends React.Component {
                 </label>
                 <label>
                     password
-                    <input type="password"
+                    <input 
+                        type="password"
                         value={this.state.password}
+                        maxLength="64"
                         onChange={ event => 
                             this.setState(
                                 {'password': event.target.value}

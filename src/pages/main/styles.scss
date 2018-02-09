@@ -38,14 +38,26 @@
 
     > section {
         width: 100%;
+        overflow: scroll;
 
         display: grid;
-        grid-template: "lpad content rpad" 100%
+        grid-template: "lpad profile rpad" 300px
+                       "lpad friends rpad" 1fr
                     /    1fr  1000px  1fr;
 
-        .opaque-profile {
-            grid-area: content;
+        > .opaque-profile {
+            grid-area: profile;
+
+            div.bio {
+                overflow: scroll;
+            }
         }
+
+        > .opaque-frienddisplay{
+            grid-area: friends;
+        }
+
+
     }
 
     > footer {

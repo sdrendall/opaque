@@ -1,4 +1,5 @@
 import React from 'react'
+import { BrowserRouter } from 'react-router-dom'
 import _axios from './network/axios'
 
 import LoginPage from './pages/login'
@@ -46,7 +47,9 @@ export default class extends React.Component {
         return ( 
             <div className="opaque-app"> 
                 { user ? (
-                    <MainPage user={user} updateUser={this.updateUser} />
+                    <BrowserRouter>
+                        <MainPage user={user} updateUser={this.updateUser} />
+                    </BrowserRouter>
                 ) : (
                     <LoginPage updateUser={this.updateUser} /> 
                 ) } 

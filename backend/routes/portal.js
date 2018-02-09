@@ -8,8 +8,8 @@ router.get('/user', (req, res) => {
     if (req.session.user) {
         accounts
             .getByUserId(req.session.user.id)
-            .then(({ rows }) => {
-                res.json({ user: rows[0] })
+            .then(user => {
+                res.json({ user })
             })
             .catch(error => logger.error(error))
     } else {
@@ -20,10 +20,8 @@ router.get('/user', (req, res) => {
 router.get('/user/:id', (req, res) => {
     accounts
         .getByUserId(req.params.id)
-        .then(({rows}) => {
-            res.json({
-                user: rows[0]
-            })
+        .then(user => {
+            res.json({ user })
         })
         .catch(error => logger.error(error))
 })
@@ -34,11 +32,11 @@ router.post('/updateBio', (req, res) => {
             id: req.session.user.id,
             bio: req.body.bio
         })
-        .then(({ rows }) => {
-            if (rows.length === 1) {
+        .then(user => {
+            if (user) {
                 res.json({
                     success: true,
-                    user: rows[0]
+                    user
                 })
             } else {
                 res.json({

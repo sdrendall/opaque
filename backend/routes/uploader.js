@@ -66,10 +66,10 @@ router.post('/upload',
                 id: req.session.user.id,
                 url: req.body.src,
             })
-            .then(({ rows }) => {
-                req.session.user = rows[0]
+            .then(user => {
+                req.session.user = user
                 res.json({
-                    user: rows[0],
+                    user,
                     success: true 
                 })
             })

@@ -1,0 +1,20 @@
+@import '../../scss/constants.scss';
+
+.opaque-frienddisplay {
+    .opaque-friendlist {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: flex-start;
+        align-items: flex-start;
+
+        > .opaque-friend {
+            display: flex;
+            flex-flow: column nowrap;
+            justify-content: space-between;
+            align-items: center;
+            width: 125px;
+            height: 200px;
+        }
+    }
+}
+
