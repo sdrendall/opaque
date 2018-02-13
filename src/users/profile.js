@@ -19,12 +19,12 @@ export default class extends React.Component {
         }
     }
 
-    componentDidMount() {
-        _axios
-            .get(`/portal/user/${this.props.targetId}`)
+    loadUser(userId) {
+        this.setState({ loading: true })
+        return _axios
+            .get(`/portal/user/${userId}`)
             .then(data => {
                 if (data) {
-                    console.log(data)
                     this.setState({
                         targetUser: data.user,
                         loading: false
@@ -33,6 +33,16 @@ export default class extends React.Component {
                     alert(`failed to load data for user with user id ${this.props.targetId}`)
                 }
             })
+    }
+
+    componentDidMount() {
+        this.loadUser(this.props.targetId)
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (this.state.targetUser.id != nextProps.targetId) {
+            this.loadUser(nextProps.targetId)
+        }
     }
 
     render() {

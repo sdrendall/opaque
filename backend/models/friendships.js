@@ -73,6 +73,6 @@ exports.terminate = ({ user_id, target_id }) => db.query(`
     UPDATE friendships
     SET status = 'terminated'
     WHERE (user1_id = $1 AND user2_id = $2)
-      OR  (user1_id = $2 AND user1_id = $1)
+      OR  (user1_id = $2 AND user2_id = $1)
     RETURNING *
 `, [user_id, target_id])
