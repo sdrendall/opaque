@@ -2,7 +2,7 @@ import React from 'react'
 import _axios from '../network/axios'
 
 import PPic from './profilePic'
-import FriendButton from '../ui/friendButton'
+import FriendButton from '../friends/friendButton'
 import './profileStyles.scss'
 
 /* props

@@ -3,14 +3,49 @@ const path = require('path')
 const compression = require('compression')
 const bodyParser = require('body-parser')
 const csurf = require('csurf')
-const sessions = require('./backend/routes/sessions')
 const portal = require('./backend/routes/portal')
 const uploader = require('./backend/routes/uploader')
 const friends = require('./backend/routes/friends')
 const { log, error } = require('./backend/util/logger')
+const PORT = process.env.PORT || require('./backend/config/local').PORT
 
 const app = express()
+const server = require('http').Server(app)
 
+// Session config
+const session = require('express-session')
+const Store = require('connect-redis')(session)
+const sessionSecret = process.env.SESSION_SECRET 
+    || require('./backend/config/secret').secret
+
+const storeConfig = process.env.REDIS_URL 
+    ? { url: process.env.REDIS_URL }
+    : {
+        ttl: 1209600, // 2 weeks
+        host: 'localhost',
+        port: 6379
+    }
+
+const sessionMiddleware = session({
+    store: new Store(storeConfig),
+    //resave: true,
+    //saveUninitialized: true,
+    secret: sessionSecret
+})
+
+// Socket.io config
+const io = require('socket.io')(server)
+io.use((socket, next) => {
+    sessionMiddleware(socket.request, socket.request.res, next)
+})
+require('./backend/sockets/greetings')(io)
+require('./backend/sockets/activeConnections')(io)
+
+app.io = io // Allows access to socket io in routes
+
+app.use(sessionMiddleware)
+
+// Data flow and logging
 app.use((req, res, next) => {
     log(`${req.method} request to ${req.url}`)
     next()
@@ -18,7 +53,6 @@ app.use((req, res, next) => {
 
 app.use(bodyParser({ extended: false }))
 app.use(compression())
-app.use(sessions)
 
 // csurf protection. requires use of ~/src/network/axios.js
 app.use(csurf())
@@ -27,6 +61,7 @@ app.use((req, res, next) => {
     next()
 })
 
+// Routes
 app.use(uploader)
 app.use('/portal', portal)
 app.use('/friends', friends)
@@ -49,6 +84,6 @@ app.get('*', function(req, res) {
 })
 
 
-app.listen(8080, function() {
-    console.log("I'm listening.")
+server.listen(PORT, function() {
+    console.log(`sup bitches,, listening on ${PORT}`)
 })

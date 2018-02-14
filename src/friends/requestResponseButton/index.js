@@ -1,9 +1,12 @@
 import React from 'react'
 import _axios from '../../network/axios'
-import ClickableText from '../clickableText'
+import ClickableText from '../../ui/clickableText'
 
 import { connect } from 'react-redux'
-import { acceptRequest, rejectRequest } from '../../redux/actions'
+import { 
+    acceptRequest, 
+    rejectRequest 
+} from '../../redux/friendStates/actions'
 
 /* props
  *  user: User

@@ -5,10 +5,11 @@ import Logo from '../../aesthetic/logo'
 import UserTag from '../../users/userTag'
 import UserProfile from '../../users/userProfile'
 import Profile from '../../users/profile'
-import FriendDisplay from '../../ui/friendDisplay'
+import FriendDisplay from '../../friends/friendDisplay'
 import Logout from '../../users/logout'
 import EditProfileModal from '../../modals/editProfile'
 import Footer from '../../aesthetic/footer'
+import ActiveUserList from '../../users/activeUserList'
 
 import './styles.scss'
 
@@ -68,6 +69,8 @@ export default class extends React.Component {
 
                     <FriendDisplay />
                 </section>
+
+                <ActiveUserList />
 
                 <Footer />
 

@@ -1,6 +1,7 @@
 import React from 'react'
 import { BrowserRouter } from 'react-router-dom'
 import _axios from './network/axios'
+import socket from './network/socket'
 
 import LoginPage from './pages/login'
 import MainPage from './pages/main'
@@ -16,7 +17,7 @@ export default class extends React.Component {
         super(props)
         this.state = {
             user: null,
-            loading: true
+            loading: true,
         }
         this.updateUser = this.updateUser.bind(this)
     }
@@ -33,6 +34,7 @@ export default class extends React.Component {
     }
 
     updateUser(newUser) {
+        socket.emit('userChange', { user: newUser })
         this.setState({
             user: newUser
         })
@@ -43,12 +45,15 @@ export default class extends React.Component {
             return null // dont render until we have user data
         }
 
-        const user = this.state.user
+        const { user } = this.state
         return ( 
             <div className="opaque-app"> 
                 { user ? (
                     <BrowserRouter>
-                        <MainPage user={user} updateUser={this.updateUser} />
+                        <MainPage 
+                            user={user} 
+                            updateUser={this.updateUser} 
+                        />
                     </BrowserRouter>
                 ) : (
                     <LoginPage updateUser={this.updateUser} /> 

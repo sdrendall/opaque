@@ -4,7 +4,10 @@ import PPic from '../../users/profilePic'
 import ResponseButton from '../requestResponseButton'
 
 import { connect } from 'react-redux'
-import { retrieveFriends, terminateFriendship } from '../../redux/actions'
+import { 
+    retrieveFriends, 
+    terminateFriendship 
+} from '../../redux/friendStates/actions'
 
 import './styles.scss'
 
