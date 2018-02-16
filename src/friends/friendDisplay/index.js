@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import PPic from '../../users/profilePic'
 import ResponseButton from '../requestResponseButton'
 
@@ -14,12 +13,9 @@ import './styles.scss'
 function friendHoc(ActionButton) {
     return function(props) {
         const { friend } = props
-        const profPath = `/user/${friend.id}`
         return (
             <div className='opaque-friend'>
-                <Link to={profPath}>
-                    <PPic user={friend} />
-                </Link>
+                <PPic user={friend} />
                 <h2>{friend.username}</h2>
                 <ActionButton
                     friendId={friend.id}

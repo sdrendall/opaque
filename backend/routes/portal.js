@@ -65,20 +65,23 @@ router.post('/login', (req, res) => {
                     res.json({
                         msg: `bad credentials`,
                         user: undefined,
+                        result
                     })
                     break;
                 case 'loginSuccess':
                     req.session.user = user
                     res.json({
-                        msg: `welcome back ${user.username}`,
+                        msg: `welcome back! ${user.username}`,
                         user,
+                        result
                     })
                     break;
                 case 'newUser':
                     req.session.user = user
                     res.json({
-                        msg: `welcome to opaQue ${user.username}`,
+                        msg: `hello ${user.username}. welcome to opaQue`,
                         user,
+                        result
                     })
                     break;
             }

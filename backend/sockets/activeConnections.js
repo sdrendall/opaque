@@ -15,6 +15,10 @@ function containsSocket(connections, socket) {
 module.exports = function(io) {
     io.on('connection', socket => {
         const session = socket.request.session
+        if (!session || !session.user) {
+            return socket.disconnect(true)
+        }
+
         log(`socket connected! id: ${socket.id}`)
 
         activeConnections = [ ...activeConnections, {
@@ -40,18 +44,6 @@ module.exports = function(io) {
                 user: session ? session.user : undefined,
                 activeConnections
             })
-        })
-
-        socket.on('userChange', ({ user }) => {
-            log(`user changed on socket: ${socket.id} to ${user}`)
-            activeConnections = activeConnections.map(
-                connection => (connection.socketId == socket.id) ? (
-                    {...connection, user}
-                ) : (
-                    connection
-                )
-            )
-            io.sockets.emit('activeConnections', { activeConnections })
         })
 
         socket.on('getActive', () => {

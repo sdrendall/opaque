@@ -38,8 +38,18 @@ const io = require('socket.io')(server)
 io.use((socket, next) => {
     sessionMiddleware(socket.request, socket.request.res, next)
 })
+io.use((socket, next) => {
+    const session = socket.request.session
+    if (!session || !session.user) {
+        return socket.disconnect(true)
+    } else {
+        console.log(`${session.user.username} connected a socket!`)
+        next()
+    }
+})
 require('./backend/sockets/greetings')(io)
 require('./backend/sockets/activeConnections')(io)
+require('./backend/sockets/messaging')(io)
 
 app.io = io // Allows access to socket io in routes
 

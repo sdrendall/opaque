@@ -1,6 +1,4 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
-import _axios from '../../network/axios'
 import UserTag from '../userTag'
 
 import { connect } from 'react-redux'
@@ -23,15 +21,21 @@ function mapStateToProps({ activeConnections }) {
             containsUser(users, user) ? users : [ ...users, user ], 
             []
         )     
+        .sort((u1, u2) => { 
+            const username1 = u1.username
+            const username2 = u2.username
+            return (username1
+                .toLowerCase()
+                .localeCompare(username2.toLowerCase())
+            )}
+        )
     return { activeUsers }
 }
 
 export default connect(mapStateToProps)
 (function({ activeUsers }) {
     const userTags = activeUsers.map(user => (
-        <Link key={user.id} to={`/user/${user.id}`}>
-            <UserTag user={user}/>
-        </Link>
+        <UserTag key={user.id} user={user}/>
     ))
 
     return (

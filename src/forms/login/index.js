@@ -27,9 +27,12 @@ class LoginForm extends React.Component {
                 password
             })
             .then(data => {
-                const { user, msg } = data
-                this.setState({ msg })
-                this.props.updateUser(user)
+                const { result, msg } = data
+                if ( result == 'loginSuccess' || result == 'newUser' ) {
+                    window.location.reload()
+                } else {
+                    this.setState({ msg })
+                }
             })
             .catch(error => {
                 alert(`login failed! reason: ${error}`)

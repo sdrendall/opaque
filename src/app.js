@@ -34,7 +34,6 @@ export default class extends React.Component {
     }
 
     updateUser(newUser) {
-        socket.emit('userChange', { user: newUser })
         this.setState({
             user: newUser
         })

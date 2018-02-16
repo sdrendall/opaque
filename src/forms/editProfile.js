@@ -35,6 +35,7 @@ export default class extends React.Component {
         return (
             <form className="opaque-form-editprofile">
                 <label>
+                    <h2>edit bio</h2>
                     <textarea 
                         cols="75" 
                         rows="10"
@@ -45,7 +46,6 @@ export default class extends React.Component {
                         }}
                         defaultValue={this.props.user.bio}
                     />
-                    <h2>edit bio</h2>
                     <button 
                         type="button"
                         onClick={this.submit}

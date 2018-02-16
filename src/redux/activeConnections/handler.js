@@ -2,7 +2,7 @@ import {
     ADD_ACTIVE_CONNECTION, 
     REMOVE_ACTIVE_CONNECTION,
     SET_ACTIVE_CONNECTIONS
-} from './actions.js'
+} from './actions'
 
 export default {
     ADD_ACTIVE_CONNECTION: (state, { connection }) => ({

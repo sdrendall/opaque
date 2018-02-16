@@ -8,8 +8,9 @@ import Profile from '../../users/profile'
 import FriendDisplay from '../../friends/friendDisplay'
 import Logout from '../../users/logout'
 import EditProfileModal from '../../modals/editProfile'
+import GlobalChatModal from '../../modals/globalChat'
 import Footer from '../../aesthetic/footer'
-import ActiveUserList from '../../users/activeUserList'
+import ClickableText from '../../ui/clickableText'
 
 import './styles.scss'
 
@@ -23,13 +24,21 @@ export default class extends React.Component {
         super(props)
         this.state = {
             displayProfileModal: false,
+            displayGlobalChatModal: false,
         }
         this.openProfileEditor = this.openProfileEditor.bind(this)
+        this.openGlobalChat = this.openGlobalChat.bind(this)
     }
 
     openProfileEditor() {
         this.setState({
             displayProfileModal: true
+        })
+    }
+
+    openGlobalChat() {
+        this.setState({
+            displayGlobalChatModal: true
         })
     }
 
@@ -39,10 +48,17 @@ export default class extends React.Component {
             <div className="opaque-page-main">
                 <header>
                     <Logo />
-                    <UserTag 
-                        user={user}
-                        clickHandler={this.openProfileEditor}
+                    <ClickableText 
+                        className="opaque-globalchat-toggle"
+                        onClick={this.openGlobalChat}
+                        text={'global'} 
                     />
+                    <Link className="opaque-usertag-link" to='/' >
+                        <UserTag 
+                            user={user} 
+                            clickHandler={ x => x }  
+                        />
+                    </Link>
                     <Logout updateUser={updateUser} />
                 </header>
 
@@ -70,17 +86,24 @@ export default class extends React.Component {
                     <FriendDisplay />
                 </section>
 
-                <ActiveUserList />
-
                 <Footer />
 
                 { this.state.displayProfileModal &&
                     <EditProfileModal 
-                    user={user}
-                    updateUser={updateUser}
-                    close={() => this.setState({
-                        displayProfileModal:false
-                    })}
+                        user={user}
+                        updateUser={updateUser}
+                        close={() => this.setState({
+                            displayProfileModal: false
+                        })}
+                    />
+                }
+
+                { this.state.displayGlobalChatModal &&
+                    <GlobalChatModal
+                        user={user}
+                        close={() => this.setState({
+                            displayGlobalChatModal: false
+                        })}
                     />
                 }
             </div>

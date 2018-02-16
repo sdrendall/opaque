@@ -5,6 +5,7 @@ import {
     removeActiveConnection,
     setActiveConnections
 } from '../redux/activeConnections/actions'
+import { incomingGlobalMessage } from '../redux/globalMessaging/actions'
 
 const socket = io.connect()
 
@@ -18,6 +19,10 @@ socket.on('userDisconnected', ({ activeConnections }) => store.dispatch(
 
 socket.on('activeConnections', ({ activeConnections }) => store.dispatch(
     setActiveConnections(activeConnections)
+))
+
+socket.on('newGlobalMessage', message => store.dispatch(
+    incomingGlobalMessage(message)
 ))
 
 export default socket

@@ -2,9 +2,10 @@
 
 .opaque-profile {
     display: grid;
-    grid-template: "ppic username" 27px
-                   "ppic    bio  " 223px
-                /   250px   750px;
+    grid-template: "ppic  username username" 27px
+                   "ppic   bpad    fbutton" 23px
+                   "ppic   bio      bio  " 200px
+                /   250px  600px   150px;
 
 
     .opaque-ppic {
@@ -17,6 +18,12 @@
         margin: 0;
         grid-area: username;
         text-align: right;
+    }
+
+    .opaque-ui-friendbutton {
+        float: right;
+        grid-area: fbutton;
+        width: 150px;
     }
 
     .bio {

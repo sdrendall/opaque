@@ -7,6 +7,11 @@ import PPic from '../../users/profilePic'
 
 import './styles.scss'
 
+/* props
+ * user: User
+ * updateUser: (User) => null
+ */
+
 export default opaqueModal(
     function(props) {
         return (

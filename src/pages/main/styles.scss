@@ -9,11 +9,11 @@
 
     > header {
         width: 100%;
-        height: 49px;
+        height: 98px;
 
         display: grid;
-        grid-template:  "lpad  logo mpad  tag logout rpad" 100%
-                       / 1fr  110px 506px 334px 50px 1fr;
+        grid-template:  "lpad  logo mpad  tag  chattog logout rpad" 100%
+                       / 1fr  110px 430px 334px  76px   50px  1fr;
 
         .opaque-logo {
             grid-area: logo;
@@ -22,12 +22,20 @@
             height: 49px;
         }
 
-        .opaque-usertag {
+        .opaque-usertag-link {
             grid-area: tag;
+        }
+
+        .opaque-usertag {
             float: right;
-            margin: 7px;
+            margin: 7px 0px;
             height: 25px;
             width: 320px;
+        }
+
+        > .opaque-ui-clickabletext {
+            grid-area: chattog;
+            margin-top: 11px;
         }
 
         .opaque-logout {
